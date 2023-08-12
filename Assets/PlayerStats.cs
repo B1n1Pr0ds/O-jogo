@@ -29,11 +29,15 @@ public class PlayerStats : MonoBehaviour
  private float playerPosture;
 
 
- private bool inventoryOpened = false;
+ private bool inUI;
+ private bool inventoryWindowOpenned;
+ private bool playerStatsWindowOpenned;
+
  [SerializeField] private GameObject playerStats;
+ [SerializeField] private GameObject playerInventory;
  [SerializeField] private GameObject uiinGame;
 
- private PlayerStatsWindow _playerStatsWindow;
+
  
  
  //=============================================Body=================================================//
@@ -195,7 +199,7 @@ public class PlayerStats : MonoBehaviour
  {
      SetPlayerMaxHP(100);
      SetPlayerHP(playerMaxHP);
-     _playerStatsWindow = gameObject.GetComponent<PlayerStatsWindow>();
+
  }
 
  private void Update()
@@ -214,39 +218,69 @@ public class PlayerStats : MonoBehaviour
      }
      if(Input.GetKeyDown(KeyCode.Y))
      {
-         if (inventoryOpened)
+         if (inUI)
          {
-             ClosePlayerStats();
+             CloseUI();
          }
 
          else
          {
-             OpenPlayerStats();
+             OpenUI();
          }
-         
+
+
      }
+     if (inUI)
+     {
+         if (playerStatsWindowOpenned)
+         {
+             if (Input.GetKeyDown(KeyCode.D))
+             {
+                 playerStats.SetActive(false);
+                 playerStatsWindowOpenned = false;
+                 playerInventory.SetActive(true);
+                 inventoryWindowOpenned = true;
+             }
+         }
+
+         if (inventoryWindowOpenned)
+         {
+             if (Input.GetKeyDown(KeyCode.A))
+             {
+                 playerInventory.SetActive(false);
+                 inventoryWindowOpenned = false;
+                 playerStats.SetActive(true);
+                 playerStatsWindowOpenned = true;
+             }
+         }
+     }
+
+
      //=====================================================================================================================//
  }
  
- private void OpenPlayerStats()
+ private void OpenUI()
  {
-     inventoryOpened = true;
+     inUI = true;
      playerStats.SetActive(true);
-     _playerStatsWindow.SetPlayerIventory();
+     playerStatsWindowOpenned = true;
      uiinGame.SetActive(false);
      
  
 }
 
- private void ClosePlayerStats()
+ private void CloseUI()
  {
-     
+     playerInventory.SetActive(false);
+     inventoryWindowOpenned = false;
      playerStats.SetActive(false);
-     inventoryOpened = false;
+     playerStatsWindowOpenned = false;
+     inUI = false;
      uiinGame.SetActive(true);
 
  }
- 
+
+
 
 }
 

@@ -671,7 +671,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &461382517
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1668,7 +1668,7 @@ GameObject:
   - component: {fileID: 848890381}
   - component: {fileID: 848890380}
   m_Layer: 0
-  m_Name: InventoryTitle
+  m_Name: StatsTitle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1935,7 +1935,8 @@ GameObject:
   - component: {fileID: 1051598381}
   - component: {fileID: 1051598380}
   - component: {fileID: 1051598382}
-  - component: {fileID: 1051598383}
+  - component: {fileID: 1051598384}
+  - component: {fileID: 1051598385}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1956,6 +1957,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerStats: {fileID: 74250667}
+  playerInventory: {fileID: 1879763113}
   uiinGame: {fileID: 461382516}
 --- !u!4 &1051598381
 Transform:
@@ -1992,7 +1994,22 @@ MonoBehaviour:
   textHP: {fileID: 845684761}
   textSta: {fileID: 1279167796}
   textMP: {fileID: 359615938}
---- !u!114 &1051598383
+--- !u!114 &1051598384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1051598379}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d93e767d717cc0140b040f9f8d9ffe76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textInventoryTitle: {fileID: 1877115046}
+  textEquippedNow: {fileID: 1375660409}
+  textOtherItems: {fileID: 697779193}
+--- !u!114 &1051598385
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2004,19 +2021,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec490376b81cc9148972b0944291fa09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  iventoryTitle: {fileID: 848890380}
+  statsTitle: {fileID: 848890380}
   bodyLabel: {fileID: 731030806}
-  playerMaxHP: {fileID: 1652977116}
+  playerMaxHp: {fileID: 1652977116}
   playerStrength: {fileID: 510102146}
   playerPhysicDefense: {fileID: 742925831}
   soulLabel: {fileID: 1700102406}
-  playerMaxMP: {fileID: 1938944390}
+  playerMaxMp: {fileID: 1938944390}
   playerMagicDefense: {fileID: 1051656005}
   playerMPquality: {fileID: 1254036569}
   mindLabel: {fileID: 187449550}
   playerMaxStamina: {fileID: 891863363}
   playerItelligence: {fileID: 1687257265}
   playerPosture: {fileID: 817159391}
+  _playerStats: {fileID: 1051598380}
 --- !u!1 &1051656002
 GameObject:
   m_ObjectHideFlags: 0
@@ -3393,7 +3411,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1879763114
 Transform:
   m_ObjectHideFlags: 0
