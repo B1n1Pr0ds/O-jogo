@@ -10,6 +10,10 @@ public class PlayerStats : MonoBehaviour
  /*Soul: Mana quantity, quality and magic defense*/
  /*Mind: Speech, Intelligence and Posture */
 
+ private float playerXP;
+ private float xpToNextLevel;
+ private int playerLevel;
+
  private int playerBody;
  private float playerHP;
  private float playerMaxHP;
@@ -36,6 +40,12 @@ public class PlayerStats : MonoBehaviour
  [SerializeField] private GameObject playerStats;
  [SerializeField] private GameObject playerInventory;
  [SerializeField] private GameObject uiinGame;
+ 
+
+ public int essentialLevels;
+ public int bodyLevels;
+ public int mindLevels;
+ public int soulLevels;
 
 
  
@@ -182,8 +192,38 @@ public class PlayerStats : MonoBehaviour
     }
     
 //=====================================================================================================================//
+//==================================================PlayerManager======================================================//
+    public float GetPlayerXP()
+    {
+        return playerXP;
+    }
 
+    public void SetPlayerXP(float _playerXp)
+    {
+        playerXP = _playerXp;
+    }
 
+    public void AddPlayerXP(float _amount)
+    {
+        playerXP += _amount;
+    }
+
+    public float GetPlayerXPtoNextLevel()
+    {
+        return xpToNextLevel;
+    }
+
+    public int GetPlayerLevel()
+    {
+        return playerLevel;
+    }
+
+    public void SetPlayerLevel(int _level)
+    {
+        playerLevel = _level;
+    }
+
+//=====================================================================================================================//
 
 
 
@@ -199,6 +239,8 @@ public class PlayerStats : MonoBehaviour
  {
      SetPlayerMaxHP(100);
      SetPlayerHP(playerMaxHP);
+     xpToNextLevel = 100;
+     SetPlayerLevel(0);
 
  }
 
@@ -225,10 +267,20 @@ public class PlayerStats : MonoBehaviour
 
          else
          {
-             OpenUI();
+             OpenUI(playerStats);
+         }
+     }
+     if(Input.GetKeyDown(KeyCode.I))
+     {
+         if (inUI)
+         {
+             CloseUI();
          }
 
-
+         else
+         {
+             OpenUI(playerInventory);
+         }
      }
      if (inUI)
      {
@@ -255,15 +307,34 @@ public class PlayerStats : MonoBehaviour
          }
      }
 
+     if (Input.GetKeyDown(KeyCode.UpArrow))
+     {
+         AddPlayerXP(100);
+     }
+     
 
      //=====================================================================================================================//
+     if (playerXP >= xpToNextLevel)
+     {
+         LevelUP();
+     }
  }
  
- private void OpenUI()
+ 
+ 
+ private void OpenUI(GameObject _uIToOpen)
  {
      inUI = true;
-     playerStats.SetActive(true);
-     playerStatsWindowOpenned = true;
+     _uIToOpen.SetActive(true);
+     if (_uIToOpen == playerStats)
+     {
+         playerStatsWindowOpenned = true;
+     }
+     else if (_uIToOpen == playerInventory)
+     {
+         inventoryWindowOpenned = true;
+     }
+     
      uiinGame.SetActive(false);
      
  
@@ -280,7 +351,81 @@ public class PlayerStats : MonoBehaviour
 
  }
 
+ private void LevelUP()
+ {
+     xpToNextLevel = xpToNextLevel * 2;
+     SetPlayerLevel(playerLevel+1);
+     essentialLevels += 1;
+ }
 
+ //==================================================LevelUpBodySection================================================//
+ public void LevelUpBody()
+ {
+     essentialLevels -= 1;
+     SetPlayerBody(GetPlayerBody()+1);
+     bodyLevels += 1;
+     SetPlayerMaxHP(GetPlayerMaxHP()+ (100 * playerLevel / 2) );
+     SetPlayerHP(GetPlayerMaxHP());
+     SetPlayerStrength(GetPlayerStrength()+(1*playerLevel/2));
+     SetPlayerPhysicalDefense(GetPlayerPhysicalDefense()+(1*playerLevel/2));
+ }
 
+ public void LevelUpHP()
+ {
+     bodyLevels -= 1;
+     SetPlayerMaxHP(GetPlayerMaxHP() + 100 * playerLevel);
+     SetPlayerHP(GetPlayerMaxHP());
+     
+ }
+
+ public void LevelUpStr()
+ {
+     bodyLevels -= 1;
+     SetPlayerStrength(GetPlayerStrength()+1 * playerLevel);
+ }
+
+ public void LevelUpDef()
+ {
+     bodyLevels -= 1;
+     SetPlayerPhysicalDefense(GetPlayerPhysicalDefense()+1*playerLevel);
+ }
+//====================================================================================================================//
+//==================================================LevelUpSoulSection================================================//
+    public void LevelUpSoul()
+    {
+        essentialLevels -= 1;
+        SetPlayerSoul(GetPlayerSoul()+1);
+        soulLevels += 1;
+        SetPlayerMaxMP(GetPlayerMaxMP()+ (50 * playerLevel / 2));
+        SetPlayerMP(GetPlayerMaxMP());
+        SetPlayerMPQuality(GetPlayerMPQuality()+(1*playerLevel/2));
+        SetPlayerMagicDefense(GetPlayerMagicDefense()+(1*playerLevel/2));
+    }
+    public void LevelUpMP()
+    {
+        soulLevels -= 1;
+        SetPlayerMaxMP(GetPlayerMaxMP() +(50 * playerLevel));;
+        SetPlayerMP(GetPlayerMaxMP());
+    }
+    public void LevelUpMPQ()
+    {
+        soulLevels -= 1;
+        SetPlayerMPQuality(GetPlayerMPQuality() + (1*playerLevel));
+    }
+
+    public void LevelUpMDef()
+    {
+        soulLevels -= 1;
+        SetPlayerMagicDefense(GetPlayerMagicDefense() + (1*playerLevel));
+    }
+//====================================================================================================================//
+//===============================================LevelUpMindSection===================================================//
+    public void LevelUPMind()
+    {
+        essentialLevels -= 1;
+        SetPlayerMind(GetPlayerMind()+1);
+        mindLevels += 1;
+    }
+//====================================================================================================================//
 }
 

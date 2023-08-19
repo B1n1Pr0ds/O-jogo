@@ -6,7 +6,15 @@ using UnityEngine;
 
 public class PlayerStatsWindow : MonoBehaviour
 {
+    [SerializeField] private GameObject essentialLevelUPGO;
+    [SerializeField] private GameObject bodyLevelUPGO;
+    [SerializeField] private GameObject soulLevelUPGO;
+    [SerializeField] private GameObject mindLevelUPGO;
+    
+    
     [SerializeField] private TextMeshProUGUI statsTitle;
+    [SerializeField] private TextMeshProUGUI playerXP;
+    [SerializeField] private TextMeshProUGUI playerLevel;
 
     [Header("Body")]
     [SerializeField] private TextMeshProUGUI bodyLabel;
@@ -28,12 +36,15 @@ public class PlayerStatsWindow : MonoBehaviour
 
     [SerializeField] PlayerStats _playerStats;
     
+    
 
 
 
-    private void OnEnable()
+    private void Update()
     {
         statsTitle.text = "Player Stats";
+        playerXP.text = "XP: " + _playerStats.GetPlayerXP().ToString() + "/" + _playerStats.GetPlayerXPtoNextLevel();
+        playerLevel.text = "Level: " + _playerStats.GetPlayerLevel();
         
         bodyLabel.text = "Body: " + _playerStats.GetPlayerBody();
         playerMaxHp.text = "HP: " + _playerStats.GetPlayerHP().ToString() + "/" + _playerStats.GetPlayerMaxHP();
@@ -49,5 +60,33 @@ public class PlayerStatsWindow : MonoBehaviour
         playerMaxStamina.text = "Sta: " + _playerStats.GetPlayerStamina().ToString() + "/" + _playerStats.GetPlayerMaxStamina();
         playerItelligence.text = "Int: " + _playerStats.GetPlayerIntelligence();
         playerPosture.text = "Pos: " + _playerStats.GetPlayerPosture();
+
+
+        if (_playerStats.essentialLevels > 0)
+        {
+            essentialLevelUPGO.SetActive(true);
+        }
+        else
+        {
+            essentialLevelUPGO.SetActive(false);
+        }
+
+        if (_playerStats.bodyLevels > 0)
+        {
+            bodyLevelUPGO.SetActive(true);
+        }
+        else
+        {
+            bodyLevelUPGO.SetActive(false);
+        }
+
+        if (_playerStats.soulLevels > 0)
+        {
+            soulLevelUPGO.SetActive(true);
+        }
+        else
+        {
+            soulLevelUPGO.SetActive(false);
+        }
     }
 }

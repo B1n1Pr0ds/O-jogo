@@ -11,7 +11,7 @@ public class PlayerInventoryWindow : MonoBehaviour
     [SerializeField] private TextMeshProUGUI textOtherItems;
 
 
-    private void OnEnable()
+    private void Update()
     {
         textInventoryTitle.text = "Inventory";
         textEquippedNow.text = "Equipped: ";
