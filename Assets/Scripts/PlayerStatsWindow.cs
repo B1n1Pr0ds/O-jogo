@@ -88,5 +88,14 @@ public class PlayerStatsWindow : MonoBehaviour
         {
             soulLevelUPGO.SetActive(false);
         }
+
+        if (_playerStats.mindLevels > 0)
+        {
+            mindLevelUPGO.SetActive(true);
+        }
+        else
+        {
+            mindLevelUPGO.SetActive(false);
+        }
     }
 }

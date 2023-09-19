@@ -238,7 +238,11 @@ public class PlayerStats : MonoBehaviour
  private void Start()
  {
      SetPlayerMaxHP(100);
-     SetPlayerHP(playerMaxHP);
+     SetPlayerHP(GetPlayerMaxHP());
+     SetPlayerMaxStamina(75);
+     SetPlayerStamina(GetPlayerMaxStamina());
+     SetPlayerMaxMP(50);
+     SetPlayerMP(GetPlayerMaxMP());
      xpToNextLevel = 100;
      SetPlayerLevel(0);
 
@@ -373,7 +377,7 @@ public class PlayerStats : MonoBehaviour
  public void LevelUpHP()
  {
      bodyLevels -= 1;
-     SetPlayerMaxHP(GetPlayerMaxHP() + 100 * playerLevel);
+     SetPlayerMaxHP(GetPlayerMaxHP() + 100 * GetPlayerBody());
      SetPlayerHP(GetPlayerMaxHP());
      
  }
@@ -381,13 +385,13 @@ public class PlayerStats : MonoBehaviour
  public void LevelUpStr()
  {
      bodyLevels -= 1;
-     SetPlayerStrength(GetPlayerStrength()+1 * playerLevel);
+     SetPlayerStrength(GetPlayerStrength()+1 * GetPlayerBody());
  }
 
  public void LevelUpDef()
  {
      bodyLevels -= 1;
-     SetPlayerPhysicalDefense(GetPlayerPhysicalDefense()+1*playerLevel);
+     SetPlayerPhysicalDefense(GetPlayerPhysicalDefense()+1*GetPlayerBody());
  }
 //====================================================================================================================//
 //==================================================LevelUpSoulSection================================================//
@@ -404,19 +408,19 @@ public class PlayerStats : MonoBehaviour
     public void LevelUpMP()
     {
         soulLevels -= 1;
-        SetPlayerMaxMP(GetPlayerMaxMP() +(50 * playerLevel));;
+        SetPlayerMaxMP(GetPlayerMaxMP() +(50 * GetPlayerSoul()));;
         SetPlayerMP(GetPlayerMaxMP());
     }
     public void LevelUpMPQ()
     {
         soulLevels -= 1;
-        SetPlayerMPQuality(GetPlayerMPQuality() + (1*playerLevel));
+        SetPlayerMPQuality(GetPlayerMPQuality() + (1*GetPlayerSoul()));
     }
 
     public void LevelUpMDef()
     {
         soulLevels -= 1;
-        SetPlayerMagicDefense(GetPlayerMagicDefense() + (1*playerLevel));
+        SetPlayerMagicDefense(GetPlayerMagicDefense() + (1*GetPlayerSoul()));
     }
 //====================================================================================================================//
 //===============================================LevelUpMindSection===================================================//
@@ -425,6 +429,30 @@ public class PlayerStats : MonoBehaviour
         essentialLevels -= 1;
         SetPlayerMind(GetPlayerMind()+1);
         mindLevels += 1;
+        SetPlayerMaxStamina(GetPlayerMaxStamina() + 75 * playerLevel/2);
+        SetPlayerStamina(GetPlayerMaxStamina());
+        SetPlayerIntelligence(GetPlayerIntelligence()+1*playerLevel/2);
+        SetPlayerPosture(GetPlayerPosture()+1*playerLevel/2);
+        
+    }
+
+    public void LevelUPStamina()
+    {
+        mindLevels -= 1;
+        SetPlayerMaxStamina(GetPlayerMaxStamina() + 75 * GetPlayerMind());
+        SetPlayerStamina(GetPlayerMaxStamina());
+    }
+
+    public void LevelUPIntelligence()
+    {
+        mindLevels -= 1;
+        SetPlayerIntelligence(GetPlayerIntelligence()+1*GetPlayerMind());
+    }
+
+    public void LevelUPPosture()
+    {
+        mindLevels -= 1;
+        SetPlayerPosture(GetPlayerPosture()+1*GetPlayerMind());
     }
 //====================================================================================================================//
 }
